@@ -1,0 +1,82 @@
+extends layout
+
+block content
+  h1= title
+  form(method='get')
+    .row.collapse
+      .small-9.large-10.columns
+        if query
+          input(type='search', name='q', spellcheck='false', autocomplete='off', value=query)
+        else
+          input(type='search', name='q', spellcheck='false', autocomplete='off', autofocus)
+      .small-3.large-2.columns
+        button.postfix Chercher
+  table#spellgrid.display
+    thead
+      tr
+        th(rowspan=2) Nom
+        th#source(rowspan=2) Source
+        th(rowspan=2) École
+        th.js-only Registres
+        th(rowspan=2) Description
+        th(colspan=13)
+          a(data-dropdown="level-drop", data-options="align:left", href="#") Niveaux
+      tr#filters
+        th.js-only#descriptors-filter
+        th Mag
+        th Prê
+        th Bar
+        th Pal
+        th Rôd
+        th Alc
+        th Dru
+        th Sor
+        th Con
+        th Inq
+        th Ora
+        th Anti
+        th Magu
+    each spell in spells
+      tr
+        td(data-sort=diacritics.remove(spell.name))
+          a(href=spell.link)= spell.name
+        td= spell.source
+        td(data-sort=diacritics.remove(spell.school))= spell.school
+        td.js-only= spell.descriptors.join(', ')
+        td= spell.short_desc || "—"
+        td= spell.level.wizard || "—"
+        td= spell.level.cleric || "—"
+        td= spell.level.bard || "—"
+        td= spell.level.paladin || "—"
+        td= spell.level.ranger || "—"
+        td= spell.level.alchemist || "—"
+        td= spell.level.druid || "—"
+        td= spell.level.witch || "—"
+        td= spell.level.summoner || "—"
+        td= spell.level.inquisotir || "—"
+        td= spell.level.oracle || "—"
+        td= spell.level.antipaladin || "—"
+        td= spell.level.magus || "—"
+
+  #level-drop.js-only.f-dropdown.content.small
+    form#show-level
+      each class_ in classes
+        .row
+          .small-3.columns
+            .switch.tiny
+              input(id="show-class-" + class_.id, type="checkbox", checked, name=class_.column).show-column
+              label(for="show-class-" + class_.id)
+          .small-9.columns
+            label(for="show-class-" + class_.id)= class_.name
+      .row
+        .small-12.columns
+          button.tiny.expand OK
+      .row
+        .small-12.columns
+          .dataTables_info Au moins une classe doit être sélectionnée.
+
+block scripts
+  script(src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.1/js/jquery.dataTables.min.js")
+  script(src="//cdn.datatables.net/plug-ins/725b2a2115b/integration/foundation/dataTables.foundation.js")
+  script(src="//cdn.datatables.net/colreorder/1.1.2/js/dataTables.colReorder.min.js") // Not present on cdnjs
+  script(src='js/spellgrid.js')

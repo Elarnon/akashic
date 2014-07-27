@@ -1,0 +1,17 @@
+doctype html
+html(lang="fr")
+  head
+    title= title
+    link(rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css")
+    link(rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/css/foundation.min.css")
+    link(rel="stylesheet", href="//cdn.datatables.net/plug-ins/725b2a2115b/integration/foundation/dataTables.foundation.css")
+    link(rel="stylesheet", href="//cdn.datatables.net/colreorder/1.1.2/css/dataTables.colReorder.css")
+    link(rel='stylesheet', href='/css/style.css')
+    script(src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js")
+  body
+    block content
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js")
+    block scripts
+    script $(document).foundation();
